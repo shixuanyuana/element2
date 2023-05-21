@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ContentDao">
+    <resultMap type="Content" id="contentResultMap" ><!--Content存疑-->
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hours" column="hours"/>
+        <result property="sid" column="sid"/>
+    </resultMap>
+
+    <insert id="addContent" parameterType="Content">
+        INSERT INTO c_course(id,name,hours,sid) VALUE (#{id},#{name}, #{hours}, #{sid})
+    </insert>
+
+    <delete id="deleteContentById" parameterType="long">
+        DELETE FROM c_course WHERE id=#{id}
+    </delete>
+
+    <update id="updateContent" parameterType="Content">
+        UPDATE c_course
+        SET name = #{name},hours= #{hours},sid = #{sid}
+        WHERE  id = #{id}
+    </update>
+
+    <select id="queryById" resultType="Content" parameterType="long">
+        SELECT id,name,hours,sid
+        FROM c_course
+        WHERE id=#{id}
+    </select>
+    <select id="queryAllContent" resultMap="contentResultMap">
+        SELECT id,name,hours ,sid
+        FROM c_course
+    </select>
+
+</mapper>
